@@ -14,14 +14,18 @@ from backend import error, keyvalue, environment
 class EmailTaken(error.Error):
     pass
 
+
 class EmailInvalid(error.Error):
     pass
+
 
 class CodeInvalid(error.Error):
     pass
 
+
 class CredentialsInvalid(error.Error):
     pass
+
 
 class NotFound(error.Error):
     pass
@@ -58,7 +62,9 @@ class UserCredentials(ndb.Model):
 
     @classmethod
     def _hash_password(cls, salt, password):
-        return hashlib.sha512("%s%s" % (salt, (password or "").encode('utf8'))).hexdigest()
+        return hashlib.sha512(
+            "%s%s" % (salt, (password or "").encode('utf8'))
+        ).hexdigest()
 
     @property
     def user(self):
@@ -78,7 +84,7 @@ class UserCredentials(ndb.Model):
         self.put()
 
     def update(self, **kwargs):
-        updates = [setattr(self, key, value) for key, value in kwargs.iteritems() if getattr(self, key) != value]
+        updates = [setattr(self, key, value) for key, value in kwargs.iteritems() if getattr(self, key) != value]  # noqa: E501
         if len(updates) > 0:
             self.put()
         return self
@@ -118,7 +124,7 @@ class User(ndb.Model):
     def login(cls, email, password):
         entity = cls.get_by_email(email)
 
-        if entity and (entity.credentials.verify(password) or password == entity.credentials.password):
+        if entity and (entity.credentials.verify(password) or password == entity.credentials.password):  # noqa: E501
             return entity
         raise CredentialsInvalid("No user found with given email and password")
 
@@ -171,11 +177,11 @@ class User(ndb.Model):
             to=self.email,
             subject="Verify your email: %s" % code,
             body="""
-Thank you for signing up! Please verify your email address using the code below:
-
-%s
-
-""" % (code)
+            Thank you for signing up! Please verify your email address using the code below:
+            
+            %s
+            
+            """ % (code)
         )
 
         return code
