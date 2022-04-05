@@ -9,6 +9,7 @@ from protorpc.wsgi import service
 
 from backend.cache import lru_cache
 from backend.user import User, EmailTaken
+from backend.movies import Movies
 
 
 BASE_PATH = "/api/"
@@ -32,6 +33,7 @@ def variant_to_type(variant):
         "SINT32": "integer"
     }
     return mapping.get(variant.name, "null")
+
 
 def message_to_schema(message):
     schema = {
@@ -163,12 +165,14 @@ def swagger2(host, path):
 
     return json.dumps(swagger)
 
+
 def swagger(summary=""):
     def decorator(f):
         f.swagger = True
         f.summary = summary
         return f
     return decorator
+
 
 def endpoint(path, title=""):
     def decorator(f):
@@ -179,6 +183,7 @@ def endpoint(path, title=""):
         return f
     return decorator
 
+
 def message_to_dict(message):
     result = {}
     for field in message.all_fields():
@@ -187,10 +192,12 @@ def message_to_dict(message):
             result[field.name] = item
     return result
 
+
 @lru_cache()
 def import_services():
     for _, modname, _ in pkgutil.walk_packages(path=pkgutil.extend_path(__path__, __name__), prefix=__name__+'.'):
         __import__(modname)
+
 
 @ndb.toplevel
 def application(environ, start_response):
@@ -236,6 +243,7 @@ def application(environ, start_response):
     else:
         return response
 
+
 def warmup(environ, start_response):
     try:
         User.create(
@@ -246,4 +254,6 @@ def warmup(environ, start_response):
         # Test user already in the database. No action needed
         pass
     start_response('200 OK', [])
+    obj = Movies.populate_movies_into_database()
+    print obj
     return ['']

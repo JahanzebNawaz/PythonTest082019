@@ -1,2 +1,9 @@
-flake8==2.6.2
+certifi==2021.10.8
+chardet==3.0.4
 coverage==4.5.4
+flake8==2.6.2
+idna==2.7
+mccabe==0.5.3
+pycodestyle==2.0.0
+pyflakes==1.2.3
+urllib3==1.24.3

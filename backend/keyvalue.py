@@ -59,10 +59,12 @@ def set(key, value, namespace=None, expires=None):
     entity = KeyValue.create(key, json.dumps(value), expires)
     return key if entity is not None else None
 
+
 def get(key, namespace=None):
     key = Key(key, namespace=namespace)
     entity = KeyValue.get(key)
     return json.loads(entity.value) if entity and not entity.expired() else None
+
 
 def delete(key, namespace=None):
     key = Key(key, namespace=namespace)

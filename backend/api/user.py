@@ -10,21 +10,26 @@ class CreateRequest(messages.Message):
     email = messages.StringField(1, required=True)
     password = messages.StringField(2, required=True)
 
+
 class TokenRequest(messages.Message):
     access_token = messages.StringField(1, required=True)
     refresh_token = messages.StringField(2, required=True)
+
 
 class TokenResponse(messages.Message):
     access_token = messages.StringField(1)
     expires = messages.FloatField(2)
     refresh_token = messages.StringField(3)
 
+
 class LoginRequest(messages.Message):
     email = messages.StringField(1)
     password = messages.StringField(2)
 
+
 class EmailVerifiedResponse(messages.Message):
     email_verified = messages.BooleanField(1)
+
 
 class MeResponse(messages.Message):
     id = messages.StringField(1)
@@ -33,25 +38,31 @@ class MeResponse(messages.Message):
     firstname = messages.StringField(4)
     lastname = messages.StringField(5)
 
+
 class UpdatePasswordRequest(messages.Message):
     current_password = messages.StringField(1, required=True)
     password = messages.StringField(2, required=True)
 
+
 class UpdateEmailRequest(messages.Message):
     current_password = messages.StringField(1, required=True)
     email = messages.StringField(2, required=True)
+
 
 class UpdateRequest(messages.Message):
     email = messages.StringField(1)
     firstname = messages.StringField(2)
     lastname = messages.StringField(3)
 
+
 class VerifyEmailRequest(messages.Message):
     code = messages.StringField(1, required=True)
+
 
 class RecoverPasswordRequest(messages.Message):
     code = messages.StringField(1, required=True)
     password = messages.StringField(2, required=True)
+
 
 class RecoverPasswordSendLinkRequest(messages.Message):
     email = messages.StringField(1, required=True)
