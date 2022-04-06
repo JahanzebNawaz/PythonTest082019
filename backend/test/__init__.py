@@ -38,6 +38,7 @@ class TestCase(unittest.TestCase):
             self.testbed.init_datastore_v3_stub(consistency_policy=self.policy)
             self.testbed.init_blobstore_stub()
             self.testbed.init_mail_stub()
+            self.testbed.init_urlfetch_stub()
 
             # get stubs
             self.task_queue_stub = self.testbed.get_stub(testbed.TASKQUEUE_SERVICE_NAME)

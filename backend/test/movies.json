@@ -1,0 +1,117 @@
+[
+    {
+        "Poster": "https://m.media-amazon.com/images/M/MV5BYTRmYzgyZjEtN2UyZS00NDYxLTlkMDctMGJjZjY0ODExNWE5XkEyXkFqcGdeQXVyNjI2ODk3NTM@._V1_SX300.jpg",
+        "id": "aghkZXZ-Tm9uZXITCxIGTW92aWVzGICAgICA8JsIDA",
+        "Year": 2020,
+        "Type": "movie",
+        "BoxOffice": "N/A",
+        "Production": "N/A",
+        "Released": "05 Nov 2020",
+        "Actors": "Rakan Abdulwahed, Dyler, Majed Fawaz",
+        "imdbRating": 1,
+        "Ratings": [
+            {
+                "Value": "1.0/10",
+                "Source": "Internet Movie Database"
+            }
+        ],
+        "Country": "Saudi Arabia",
+        "Awards": "N/A",
+        "Language": "Arabic",
+        "Rated": "N/A",
+        "Website": "N/A",
+        "Genre": "Drama",
+        "Plot": "The events of the film revolve around a solitary actress devoted to caring for her daughter, but she decides to retire and return to acting through a new movie, and many comedic ironies occur during the filming of this new movie.",
+        "Runtime": "100 min",
+        "imdbVotes": "9,529",
+        "Title": "321 Action",
+        "Director": "Shady Al Ramly",
+        "imdbID": "tt13423846",
+        "Writer": "Mayssa Maghrebi",
+        "DVD": "N/A",
+        "Metascore": 0,
+        "Response": "True"
+    },
+    {
+        "Poster": "https://m.media-amazon.com/images/M/MV5BZmEzNjhiZWEtNTM5OS00ZmQyLThhYjEtNjY4ZDZhOGFkMzI4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+        "id": "aghkZXZ-Tm9uZXITCxIGTW92aWVzGICAgICA8L8IDA",
+        "Year": 1998,
+        "Type": "movie",
+        "BoxOffice": "$56,709,981",
+        "Production": "N/A",
+        "Released": "08 Jan 1999",
+        "Actors": "John Travolta, Robert Duvall, Kathleen Quinlan",
+        "imdbRating": 6.6,
+        "Ratings": [
+            {
+                "Value": "6.6/10",
+                "Source": "Internet Movie Database"
+            },
+            {
+                "Value": "62%",
+                "Source": "Rotten Tomatoes"
+            },
+            {
+                "Value": "68/100",
+                "Source": "Metacritic"
+            }
+        ],
+        "Country": "United States",
+        "Awards": "Nominated for 2 Oscars. 5 wins & 10 nominations total",
+        "Language": "English",
+        "Rated": "PG-13",
+        "Website": "N/A",
+        "Genre": "Drama",
+        "Plot": "A tenacious lawyer takes on a case involving a major company responsible for causing several people to be diagnosed with leukemia due to the town's water supply being contaminated, at the risk of bankrupting his firm and career.",
+        "Runtime": "115 min",
+        "imdbVotes": "28,711",
+        "Title": "A Civil Action",
+        "Director": "Steven Zaillian",
+        "imdbID": "tt0120633",
+        "Writer": "Jonathan Harr, Steven Zaillian",
+        "DVD": "04 Mar 2003",
+        "Metascore": 68,
+        "Response": "True"
+    },
+    {
+        "Poster": "https://m.media-amazon.com/images/M/MV5BZmEzNjhiZWEtNTM5OS00ZmQyLThhYjEtNjY4ZDZhOGFkMzI4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
+        "id": "aghkZXZ-Tm9uZXITCxIGTW92aWVzGICAgICA8OsIDA",
+        "Year": 1998,
+        "Type": "movie",
+        "BoxOffice": "$56,709,981",
+        "Production": "N/A",
+        "Released": "08 Jan 1999",
+        "Actors": "John Travolta, Robert Duvall, Kathleen Quinlan",
+        "imdbRating": 6.6,
+        "Ratings": [
+            {
+                "Value": "6.6/10",
+                "Source": "Internet Movie Database"
+            },
+            {
+                "Value": "62%",
+                "Source": "Rotten Tomatoes"
+            },
+            {
+                "Value": "68/100",
+                "Source": "Metacritic"
+            }
+        ],
+        "Country": "United States",
+        "Awards": "Nominated for 2 Oscars. 5 wins & 10 nominations total",
+        "Language": "English",
+        "Rated": "PG-13",
+        "Website": "N/A",
+        "Genre": "Drama",
+        "Plot": "A tenacious lawyer takes on a case involving a major company responsible for causing several people to be diagnosed with leukemia due to the town's water supply being contaminated, at the risk of bankrupting his firm and career.",
+        "Runtime": "115 min",
+        "imdbVotes": "28,711",
+        "Title": "A Civil Action",
+        "Director": "Steven Zaillian",
+        "imdbID": "tt0120633",
+        "Writer": "Jonathan Harr, Steven Zaillian",
+        "DVD": "04 Mar 2003",
+        "Metascore": 68,
+        "Response": "True"
+    }
+]

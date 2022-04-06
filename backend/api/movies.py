@@ -1,4 +1,4 @@
-from protorpc import remote, messages, message_types
+from protorpc import remote, messages
 from backend import api
 from backend import movies as moviesModel
 from google.appengine.api import urlfetch
@@ -50,6 +50,7 @@ class MovieResponse(messages.Message):
 class MoviesList(messages.Message):
     data = messages.MessageField(MoviesStructure, 1, repeated=True)
     total = messages.IntegerField(2)
+    limit = messages.IntegerField(3, default=3)
 
 
 class MovieRequestByTitle(messages.Message):
@@ -76,7 +77,6 @@ class Movies(remote.Service):
             obj = moviesModel.Rating(Source=x.Source, Value=x.Value)
             new_rating_obj.append(obj)
 
-        print request.Response
         obj = moviesModel.Movies.create(
             Title=request.Title,
             Year=int(request.Year),
@@ -104,23 +104,29 @@ class Movies(remote.Service):
             Website=request.Website,
             Response=bool(request.Response)
         )
-        return MovieResponse(id=obj.id, title=obj.Title, status="Movie Stored in database")
+        return MovieResponse(
+            id=obj.id, title=obj.Title, status="Movie Stored in database"
+        )
 
     @remote.method(MovieRequestByTitle, MovieResponse)
     def add(self, request):
         """
-        This method allows users to fetch movie details from OMDB API using title
-        and store it into database
+        This method allows users to fetch movie details from OMDB API
+        using title and store it into database
         params:
             title: pass name or title of the movie
         """
         if request.title:
-            movie_param = '?apikey={}&t={}'.format(moviesModel.API_KEY, request.title)
+            movie_param = '?apikey={}&t={}'.format(
+                moviesModel.API_KEY, request.title
+            )
             movie_param = movie_param.replace(" ", "%20")
             response = urlfetch.fetch(moviesModel.OMDB_API + movie_param)
             movie_details = json.loads(response.content)
             movie_details['Response'] = bool(movie_details['Response'])
-            movie_details['Metascore'] = 0 if movie_details['Metascore'] == 'N/A' else int(movie_details['Metascore'])
+            movie_details['Metascore'] = (
+                0 if movie_details['Metascore'] == 'N/A' else int(movie_details['Metascore'])  # noqa: E501
+            )
             movie_details['imdbRating'] = float(movie_details['imdbRating'])
             movie_details['Year'] = int(movie_details['Year'])
             moviesModel.Movies.create(**movie_details)
@@ -131,16 +137,45 @@ class Movies(remote.Service):
     @remote.method(MovieRequestByTitle, MoviesStructure)
     def get(self, request):
         """
-        This method allows users to fetch movie details from OMDB API using title
-        and store it into database
+        This method allows users to fetch movie details from database.
         params:
             title: pass name or title of the movie
         """
         if request.title:
-            obj = moviesModel.Movies.query().filter(moviesModel.Movies.Title == request.title).get()
-            return MoviesStructure(Title=request.title)
+            obj = moviesModel.Movies.query().filter(moviesModel.Movies.Title == request.title).get()  # noqa: E501
+            ratings = [
+                Rating(Source=rating.Source, Value=rating.Value) for rating in obj.Ratings  # noqa: E501
+            ]
+            return MoviesStructure(
+                Title=obj.Title,
+                Year=obj.Year,
+                Rated=obj.Rated,
+                Released=obj.Released,
+                Runtime=obj.Runtime,
+                Genre=obj.Genre,
+                Director=obj.Director,
+                Writer=obj.Writer,
+                Actors=obj.Actors,
+                Plot=obj.Plot,
+                Language=obj.Language,
+                Country=obj.Country,
+                Awards=obj.Awards,
+                Poster=obj.Poster,
+                Ratings=ratings,
+                Metascore=obj.Metascore,
+                imdbRating=obj.imdbRating,
+                imdbVotes=obj.imdbVotes,
+                imdbID=obj.imdbID,
+                Type=obj.Type,
+                DVD=obj.DVD,
+                BoxOffice=obj.BoxOffice,
+                Production=obj.Production,
+                Website=obj.Website,
+                Response=str(obj.Response)
+            )
         return MoviesStructure()
 
+    @oauth2.required()
     @remote.method(MoviesList, MoviesList)
     def list(self, request):
         """
@@ -149,7 +184,9 @@ class Movies(remote.Service):
         query = moviesModel.Movies.query().order(moviesModel.Movies.Title)
         qs = []
         for obj in query:
-            ratings = [Rating(Source=rating.Source, Value=rating.Value) for rating in obj.Ratings]
+            ratings = [
+                Rating(Source=rating.Source, Value=rating.Value) for rating in obj.Ratings  # noqa: E501
+            ]
             movie = MoviesStructure(
                 id=obj.id,
                 Title=obj.Title,
@@ -185,13 +222,13 @@ class Movies(remote.Service):
     @remote.method(MovieRequestById, MovieResponse)
     def delete(self, request):
         """
-        This method allows users to fetch movie details from OMDB API using title
-        and store it into database
+        This method allows users to fetch movie details from OMDB API
+        using title and store it into database
         params:
             title: pass name or title of the movie
         """
         if request.id and self.session.user:
-            obj = moviesModel.Movies.delete_by_id(request.id)
+            moviesModel.Movies.delete_by_id(request.id)
             return MovieResponse(status="Movie Deleted")
         status = "No movie found with id: {}".format(request.id)
         return MovieResponse(status=status)
